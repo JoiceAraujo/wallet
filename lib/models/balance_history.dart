@@ -1,14 +1,16 @@
+import 'package:flutter/foundation.dart';
+
 class BalanceHistory {
   int id;
   String initialDate;
   String finalDate;
   double finalBalance;
 
-  BalanceHistory(
-    this.initialDate,
-    this.finalDate,
-    this.finalBalance,
-  );
+  BalanceHistory({
+    @required this.initialDate,
+    @required this.finalDate,
+    @required this.finalBalance,
+  });
 
   BalanceHistory.fromMap(Map<String, dynamic> map) {
     id = map['id'];

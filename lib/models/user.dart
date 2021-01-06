@@ -1,13 +1,15 @@
+import 'package:flutter/foundation.dart';
+
 class User {
   int id;
   String name;
   double monthlyIncome;
   int balanceHistory;
 
-  User(
-    this.name,
-    this.monthlyIncome,
-  );
+  User({
+    @required this.name,
+    @required this.monthlyIncome,
+  });
 
   User.fromMap(Map<String, dynamic> map) {
     id = map['id'];
