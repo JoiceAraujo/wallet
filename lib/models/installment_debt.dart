@@ -2,19 +2,19 @@ import 'package:flutter/foundation.dart';
 
 import '../utils/date_formatter.dart';
 
-class InstallmentDebts {
+class InstallmentDebt {
   int id;
   double installmentValue;
   String dateExpiration;
   int debtId;
 
-  InstallmentDebts({
+  InstallmentDebt({
     @required this.installmentValue,
     @required this.dateExpiration,
     @required this.debtId,
   });
 
-  InstallmentDebts.fromMap(Map<String, dynamic> map) {
+  InstallmentDebt.fromMap(Map<String, dynamic> map) {
     id = map['id'];
     installmentValue = map['installment_value'];
     dateExpiration = DateFormatter().fromDatabase(map['date_expiration']);
