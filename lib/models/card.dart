@@ -5,13 +5,13 @@ class Card {
   String nickname;
   double balance;
   String type;
-  int user;
+  int userId;
 
   Card({
     @required this.nickname,
     @required this.balance,
     @required this.type,
-    @required this.user,
+    @required this.userId,
   });
 
   Card.fromMap(Map<String, dynamic> map) {
@@ -19,7 +19,7 @@ class Card {
     nickname = map['nickname'];
     balance = map['balance'];
     type = map['type'];
-    user = map['user_id'];
+    userId = map['user_id'];
   }
 
   Map<String, dynamic> toMap() {
@@ -28,7 +28,7 @@ class Card {
       'nickname': nickname,
       'balance': balance,
       'type': type,
-      'user_id': user,
+      'user_id': userId,
     };
 
     return map;

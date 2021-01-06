@@ -2,31 +2,31 @@ import 'package:flutter/foundation.dart';
 
 import '../utils/date_formatter.dart';
 
-class CreditCardDates {
+class InstallmentDebts {
   int id;
-  String dateClosing;
+  double installmentValue;
   String dateExpiration;
-  int cardId;
+  int debtId;
 
-  CreditCardDates({
-    @required this.dateClosing,
+  InstallmentDebts({
+    @required this.installmentValue,
     @required this.dateExpiration,
-    @required this.cardId,
+    @required this.debtId,
   });
 
-  CreditCardDates.fromMap(Map<String, dynamic> map) {
+  InstallmentDebts.fromMap(Map<String, dynamic> map) {
     id = map['id'];
-    dateClosing = DateFormatter().fromDatabase(map['date_closing']);
+    installmentValue = map['installment_value'];
     dateExpiration = DateFormatter().fromDatabase(map['date_expiration']);
-    cardId = map['card_id'];
+    debtId = map['debt_id'];
   }
 
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = {
       'id': id,
-      'date_closing': DateFormatter().toDatabase(dateClosing),
+      'installment_value': installmentValue,
       'date_expiration': DateFormatter().toDatabase(dateExpiration),
-      'card_id': cardId,
+      'debt_id': debtId,
     };
 
     return map;

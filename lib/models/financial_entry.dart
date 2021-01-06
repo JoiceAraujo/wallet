@@ -1,25 +1,26 @@
 import 'package:flutter/foundation.dart';
+import 'package:wallet/utils/date_formatter.dart';
 
-class FinancialEntries {
+class FinancialEntry {
   int id;
   double value;
   String description;
   String entryDate;
-  int user;
+  int userId;
 
-  FinancialEntries({
+  FinancialEntry({
     @required this.value,
     @required this.description,
     @required this.entryDate,
-    @required this.user,
+    @required this.userId,
   });
 
-  FinancialEntries.fromMap(Map<String, dynamic> map) {
+  FinancialEntry.fromMap(Map<String, dynamic> map) {
     id = map['id'];
     value = map['value'];
     description = map['description'];
-    entryDate = map['entry_date'];
-    user = map['user_id'];
+    entryDate = DateFormatter().fromDatabase(map['entry_date']);
+    userId = map['user_id'];
   }
 
   Map<String, dynamic> toMap() {
@@ -27,8 +28,8 @@ class FinancialEntries {
       'id': id,
       'value': value,
       'description': description,
-      'entry_date': entryDate,
-      'user_id': user,
+      'entry_date': DateFormatter().toDatabase(entryDate),
+      'user_id': userId,
     };
 
     return map;

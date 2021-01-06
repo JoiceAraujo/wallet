@@ -4,7 +4,7 @@ class User {
   int id;
   String name;
   double monthlyIncome;
-  int balanceHistory;
+  int balanceHistoryId;
 
   User({
     @required this.name,
@@ -15,7 +15,7 @@ class User {
     id = map['id'];
     name = map['name'];
     monthlyIncome = map['monthly_income'];
-    balanceHistory = map['id_balance'];
+    balanceHistoryId = map['id_balance'];
   }
 
   Map<String, dynamic> toMap() {
@@ -23,7 +23,7 @@ class User {
       'id': id,
       'name': name,
       'monthly_income': monthlyIncome,
-      'id_balance': balanceHistory,
+      'id_balance': balanceHistoryId,
     };
 
     return map;
