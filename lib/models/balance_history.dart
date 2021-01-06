@@ -1,5 +1,7 @@
 import 'package:flutter/foundation.dart';
 
+import '../utils/date_formatter.dart';
+
 class BalanceHistory {
   int id;
   String initialDate;
@@ -14,16 +16,16 @@ class BalanceHistory {
 
   BalanceHistory.fromMap(Map<String, dynamic> map) {
     id = map['id'];
-    initialDate = map['initial_date'];
-    finalDate = map['final_date'];
+    initialDate = DateFormatter().fromDatabase(map['initial_date']);
+    finalDate = DateFormatter().fromDatabase(map['final_date']);
     finalBalance = map['final_balance'];
   }
 
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = {
       'id': id,
-      'initial_date': initialDate,
-      'final_date': finalDate,
+      'initial_date': DateFormatter().toDatabase(initialDate),
+      'final_date': DateFormatter().toDatabase(finalDate),
       'final_balance': finalBalance,
     };
 
