@@ -9,7 +9,6 @@ class CreditCardDates {
   int card;
 
   CreditCardDates({
-    @required this.id,
     @required this.dateClosing,
     @required this.dateExpiration,
     @required this.card,
