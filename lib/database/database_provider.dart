@@ -1,5 +1,6 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:wallet/models/user.dart';
 
 import 'database_queries.dart';
 
@@ -29,4 +30,38 @@ class DatabaseProvider {
 
     return await openDatabase(path, version: 1, onCreate: onCreateFunction);
   }
+
+//  User methods
+  Future<int> addUser(User user) async {
+    final db = await database;
+
+    try {
+      return await db.insert('Users', user.toMap());
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
+
+  void updateMonthlyIncome(Map<String, dynamic> value) async {
+    final db = await database;
+
+    try {
+      db.update('Users', value, where: 'id = ?', whereArgs: [0]);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+//  Balance history methods
+
+//  Financial entries methods
+
+//  Cards methods
+
+//  Credit cards dates methods
+
+//  Debts methods
+
+//  Installment debts methods
 }
