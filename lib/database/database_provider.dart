@@ -2,6 +2,7 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:wallet/models/balance_history.dart';
 import 'package:wallet/models/card.dart';
+import 'package:wallet/models/credit_card_date.dart';
 import 'package:wallet/models/financial_entry.dart';
 import 'package:wallet/models/user.dart';
 
@@ -237,8 +238,46 @@ class DatabaseProvider {
       print(e);
     }
   }
-//  Credit cards dates methods
 
+//  Credit cards dates methods
+  Future<int> addCreditCardDate(CreditCardDate creditCardDate) async {
+    final db = await database;
+
+    try {
+      return await db.insert('CreditCardsDates', creditCardDate.toMap());
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
+
+  void updateCreditCardDate(Map<String, dynamic> value, int id) async {
+    final db = await database;
+
+    try {
+      await db.update(
+        'CreditCardsDates',
+        value,
+        where: 'id = ?',
+        whereArgs: [id],
+      );
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<List<Map<String, dynamic>>> getAllCreditCardsDates() async {
+    final db = await database;
+
+    try {
+      List<Map<String, dynamic>> result = await db.query('CreditCardsDates');
+
+      return result;
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
 //  Debts methods
 
 //  Installment debts methods
