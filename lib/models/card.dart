@@ -1,10 +1,12 @@
 import 'package:flutter/foundation.dart';
+import 'package:wallet/utils/constants.dart';
+import 'package:wallet/utils/enum_converter.dart';
 
 class Card {
   int id;
   String nickname;
   double balance;
-  String type;
+  CardType type;
   int userId;
 
   Card({
@@ -18,7 +20,7 @@ class Card {
     id = map['id'];
     nickname = map['nickname'];
     balance = map['balance'];
-    type = map['type'];
+    type = EnumConverter().cardTypeFromDatabase(map['type']);
     userId = map['user_id'];
   }
 
@@ -27,7 +29,7 @@ class Card {
       'id': id,
       'nickname': nickname,
       'balance': balance,
-      'type': type,
+      'type': EnumConverter().cardTypeToDatabase(type),
       'user_id': userId,
     };
 

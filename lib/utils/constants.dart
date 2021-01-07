@@ -1,18 +1,15 @@
 class Constants {}
 
-enum DebtTypes {
+enum DebtType {
   Services,
-  Electronics,
-  Clothing,
   Supermarket,
   CreditCard,
   Academy,
-  Cheers,
   House,
   Transport,
   Recreation,
   Restaurant,
-  Travel,
+  Savings,
   Others,
 }
 
@@ -21,7 +18,7 @@ enum DebtStatus {
   Pending,
 }
 
-enum CardTypes {
+enum CardType {
   Credit,
   Debit,
 }

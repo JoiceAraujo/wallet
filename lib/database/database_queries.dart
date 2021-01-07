@@ -37,7 +37,7 @@ class DatabaseQueries {
     description TEXT,
     installment_debt INTEGER NOT NULL,
     quantity_instalments INTEGER NOT NULL, 
-    type TEXT NOT NULL,
+    type INTEGER NOT NULL,
     status TEXT NOT NULL,
     base_day TEXT NOT NULL,
     payment_method INTEGER NOT NULL,

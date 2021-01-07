@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:wallet/utils/date_formatter.dart';
+import 'package:wallet/utils/date_converter.dart';
 
 class FinancialEntry {
   int id;

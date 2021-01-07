@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 
-import '../utils/date_formatter.dart';
+import '../utils/date_converter.dart';
 
 class CreditCardDate {
   int id;
