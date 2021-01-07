@@ -1,6 +1,7 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:wallet/models/balance_history.dart';
+import 'package:wallet/models/card.dart';
 import 'package:wallet/models/financial_entry.dart';
 import 'package:wallet/models/user.dart';
 
@@ -172,7 +173,70 @@ class DatabaseProvider {
   }
 
 //  Cards methods
+  Future<int> addCard(Card card) async {
+    final db = await database;
 
+    try {
+      return await db.insert('Cards', card.toMap());
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
+
+  void updateCard(Map<String, dynamic> value, int id) async {
+    final db = await database;
+
+    try {
+      await db.update('Cards', value, where: 'id = ?', whereArgs: [id]);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<List<Map<String, dynamic>>> getAllCards() async {
+    final db = await database;
+
+    try {
+      List<Map<String, dynamic>> result = await db.query('Cards');
+
+      return result;
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
+
+  Future<Map<String, dynamic>> getCardById(int id) async {
+    final db = await database;
+
+    try {
+      List<Map<String, dynamic>> result = await db.query(
+        'Cards',
+        where: 'id = ?',
+        whereArgs: [id],
+      );
+
+      return result.first;
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
+
+  void deleteCard(int id) async {
+    final db = await database;
+
+    try {
+      await db.delete(
+        'Cards',
+        where: 'id = ?',
+        whereArgs: [id],
+      );
+    } catch (e) {
+      print(e);
+    }
+  }
 //  Credit cards dates methods
 
 //  Debts methods
