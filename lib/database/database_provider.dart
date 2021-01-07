@@ -1,6 +1,7 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:wallet/models/balance_history.dart';
+import 'package:wallet/models/financial_entry.dart';
 import 'package:wallet/models/user.dart';
 
 import 'database_queries.dart';
@@ -48,7 +49,7 @@ class DatabaseProvider {
     final db = await database;
 
     try {
-      db.update('Users', value, where: 'id = ?', whereArgs: [0]);
+      await db.update('Users', value, where: 'id = ?', whereArgs: [0]);
     } catch (e) {
       print(e);
     }
@@ -70,7 +71,8 @@ class DatabaseProvider {
     final db = await database;
 
     try {
-      db.update('BalanceHistories', value, where: 'id = ?', whereArgs: [id]);
+      await db
+          .update('BalanceHistories', value, where: 'id = ?', whereArgs: [id]);
     } catch (e) {
       print(e);
       return null;
@@ -94,7 +96,7 @@ class DatabaseProvider {
     }
   }
 
-  Future<Map<String, dynamic>> getBalanceByPeriod(
+  Future<List<Map<String, dynamic>>> getBalanceByPeriod(
       String initialDate, String finalDate) async {
     final db = await database;
 
@@ -105,7 +107,7 @@ class DatabaseProvider {
         whereArgs: [initialDate, finalDate],
       );
 
-      return result.first;
+      return result;
     } catch (e) {
       print(e);
       return null;
@@ -113,6 +115,61 @@ class DatabaseProvider {
   }
 
 //  Financial entries methods
+  Future<int> addFinancialEntry(FinancialEntry financialEntry) async {
+    final db = await database;
+
+    try {
+      return await db.insert('FinancialEntries', financialEntry.toMap());
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
+
+  void deleteFinancialEntry(int id) async {
+    final db = await database;
+
+    try {
+      await db.delete('FinancialEntries', where: 'id = ?', whereArgs: [id]);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<List<Map<String, dynamic>>> getAllFinancialEntries() async {
+    final db = await database;
+
+    try {
+      List<Map<String, dynamic>> result = await db.query(
+        'FinancialEntries',
+        groupBy: 'entry_date',
+      );
+
+      return result;
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
+
+  Future<List<Map<String, dynamic>>> getFinancialEntriesByPeriod(
+      String initialDate, String finalDate) async {
+    final db = await database;
+
+    try {
+      List<Map<String, dynamic>> result = await db.query(
+        'FinancialEntries',
+        where: 'entry_date >= ? AND entry_date <= ?',
+        whereArgs: [initialDate, finalDate],
+        groupBy: 'entry_date',
+      );
+
+      return result;
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
 
 //  Cards methods
 
