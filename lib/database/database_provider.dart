@@ -1,5 +1,6 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:wallet/models/balance_history.dart';
 import 'package:wallet/models/user.dart';
 
 import 'database_queries.dart';
@@ -43,7 +44,7 @@ class DatabaseProvider {
     }
   }
 
-  void updateMonthlyIncome(Map<String, dynamic> value) async {
+  void updateUser(Map<String, dynamic> value) async {
     final db = await database;
 
     try {
@@ -54,6 +55,62 @@ class DatabaseProvider {
   }
 
 //  Balance history methods
+  Future<int> addBalanceHistory(BalanceHistory balance) async {
+    final db = await database;
+
+    try {
+      return await db.insert('BalanceHistories', balance.toMap());
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
+
+  void updateFinalBalance(Map<String, dynamic> value, int id) async {
+    final db = await database;
+
+    try {
+      db.update('BalanceHistories', value, where: 'id = ?', whereArgs: [id]);
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
+
+  Future<Map<String, dynamic>> getBalanceById(int id) async {
+    final db = await database;
+
+    try {
+      List<Map<String, dynamic>> result = await db.query(
+        'BalanceHistories',
+        where: 'id = ?',
+        whereArgs: [id],
+      );
+
+      return result.first;
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
+
+  Future<Map<String, dynamic>> getBalanceByPeriod(
+      String initialDate, String finalDate) async {
+    final db = await database;
+
+    try {
+      List<Map<String, dynamic>> result = await db.query(
+        'BalanceHistories',
+        where: 'initial_date = ? AND final_date = ?',
+        whereArgs: [initialDate, finalDate],
+      );
+
+      return result.first;
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
 
 //  Financial entries methods
 
