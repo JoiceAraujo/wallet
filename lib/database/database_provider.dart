@@ -2,7 +2,7 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../models/balance_history.dart';
-import '../models/card.dart';
+import '../models/bank_card.dart';
 import '../models/credit_card_date.dart';
 import '../models/debt.dart';
 import '../models/financial_entry.dart';
@@ -176,7 +176,7 @@ class DatabaseProvider {
   }
 
 //  Cards methods
-  Future<int> addCard(Card card) async {
+  Future<int> addCard(BankCard card) async {
     final db = await database;
 
     try {
@@ -281,7 +281,22 @@ class DatabaseProvider {
     }
   }
 
-  Future<void> getCreditCardDatesByCardId(int cardId) async {}
+  Future<Map<String, dynamic>> getCreditCardDatesByCardId(int cardId) async {
+    final db = await database;
+
+    try {
+      List<Map<String, dynamic>> result = await db.query(
+        'CreditCardsDates',
+        where: 'card_id = ?',
+        whereArgs: [cardId],
+      );
+
+      return result.first;
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
 
 //  Debts methods
   Future<int> addDebt(Debt debt) async {
@@ -333,7 +348,22 @@ class DatabaseProvider {
     }
   }
 
-  Future<void> getDebtById(int id) async {}
+  Future<Map<String, dynamic>> getDebtById(int id) async {
+    final db = await database;
+
+    try {
+      List<Map<String, dynamic>> result = await db.query(
+        'Debts',
+        where: 'id = ?',
+        whereArgs: [id],
+      );
+
+      return result.first;
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
 
 // Installment debts methods
   Future<List<int>> addInstallmentDebts(

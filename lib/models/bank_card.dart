@@ -2,21 +2,21 @@ import 'package:flutter/foundation.dart';
 import 'package:wallet/utils/constants.dart';
 import 'package:wallet/utils/enum_converter.dart';
 
-class Card {
+class BankCard {
   int id;
   String nickname;
   double balance;
   CardType type;
   int userId;
 
-  Card({
+  BankCard({
     @required this.nickname,
     @required this.balance,
     @required this.type,
     @required this.userId,
   });
 
-  Card.fromMap(Map<String, dynamic> map) {
+  BankCard.fromMap(Map<String, dynamic> map) {
     id = map['id'];
     nickname = map['nickname'];
     balance = map['balance'];
