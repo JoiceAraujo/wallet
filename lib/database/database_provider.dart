@@ -3,6 +3,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:wallet/models/balance_history.dart';
 import 'package:wallet/models/card.dart';
 import 'package:wallet/models/credit_card_date.dart';
+import 'package:wallet/models/debt.dart';
 import 'package:wallet/models/financial_entry.dart';
 import 'package:wallet/models/user.dart';
 
@@ -278,7 +279,23 @@ class DatabaseProvider {
       return null;
     }
   }
-//  Debts methods
 
-//  Installment debts methods
+//  Debts methods
+  Future<int> addDebt(Debt debt) async {
+    final db = await database;
+
+    try {
+      return await db.insert('Debts', debt.toMap());
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
+
+  void deleteDebt() {}
+
+  void updateDebt() {}
+
+  void getDebtsByPeriod() {}
+  //  Installment debts methods
 }
