@@ -312,6 +312,22 @@ class DatabaseProvider {
     }
   }
 
-  void getDebtsByPeriod() {}
+  Future<List<Map<String, dynamic>>> getDebtsByPeriod(
+      String initialDate, String finalDate) async {
+    final db = await database;
+
+    try {
+      List<Map<String, dynamic>> result = await db.query(
+        'Debts',
+        where: 'base_day >= ? AND base_day <= ?',
+        whereArgs: [initialDate, finalDate],
+      );
+
+      return result;
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
   //  Installment debts methods
 }
