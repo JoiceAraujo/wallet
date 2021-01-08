@@ -42,8 +42,8 @@ class DatabaseQueries {
     base_day TEXT NOT NULL,
     payment_method INTEGER NOT NULL,
     user_id INTEGER NOT NULL,
-    FOREIGN KEY(user_id) REFERENCES Users(id)
-    FOREIGN KEY(payment_method) REFERENCES Cards(id)    
+    FOREIGN KEY(user_id) REFERENCES Users(id),
+    FOREIGN KEY(payment_method) REFERENCES Cards(id)
   );
   ''';
 
@@ -53,7 +53,7 @@ class DatabaseQueries {
     installment_value REAL NOT NULL,
     date_expiration TEXT NOT NULL,
     debt_id INTEGER NOT NULL,
-    FOREIGN KEY(debt_id) REFERENCES Debts(id)
+    FOREIGN KEY(debt_id) REFERENCES Debts(id) ON DELETE CASCADE
   );
   ''';
 

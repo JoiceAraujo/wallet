@@ -292,9 +292,25 @@ class DatabaseProvider {
     }
   }
 
-  void deleteDebt() {}
+  void deleteDebt(int id) async {
+    final db = await database;
 
-  void updateDebt() {}
+    try {
+      await db.delete('Debts', where: 'id = ?', whereArgs: [id]);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  void updateDebt(Map<String, dynamic> value, int id) async {
+    final db = await database;
+
+    try {
+      await db.update('Debts', value, where: 'id = ?', whereArgs: [id]);
+    } catch (e) {
+      print(e);
+    }
+  }
 
   void getDebtsByPeriod() {}
   //  Installment debts methods
