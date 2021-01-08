@@ -43,7 +43,7 @@ class DatabaseQueries {
     payment_method INTEGER NOT NULL,
     user_id INTEGER NOT NULL,
     FOREIGN KEY(user_id) REFERENCES Users(id),
-    FOREIGN KEY(payment_method) REFERENCES Cards(id)
+    FOREIGN KEY(payment_method) REFERENCES Cards(id) ON DELETE CASCADE
   );
   ''';
 

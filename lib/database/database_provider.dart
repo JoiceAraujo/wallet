@@ -1,12 +1,13 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:wallet/models/balance_history.dart';
-import 'package:wallet/models/card.dart';
-import 'package:wallet/models/credit_card_date.dart';
-import 'package:wallet/models/debt.dart';
-import 'package:wallet/models/financial_entry.dart';
-import 'package:wallet/models/user.dart';
 
+import '../models/balance_history.dart';
+import '../models/card.dart';
+import '../models/credit_card_date.dart';
+import '../models/debt.dart';
+import '../models/financial_entry.dart';
+import '../models/installment_debt.dart';
+import '../models/user.dart';
 import 'database_queries.dart';
 
 class DatabaseProvider {
@@ -280,6 +281,8 @@ class DatabaseProvider {
     }
   }
 
+  Future<void> getCreditCardDatesByCardId(int cardId) async {}
+
 //  Debts methods
   Future<int> addDebt(Debt debt) async {
     final db = await database;
@@ -329,5 +332,42 @@ class DatabaseProvider {
       return null;
     }
   }
-  //  Installment debts methods
+
+  Future<void> getDebtById(int id) async {}
+
+// Installment debts methods
+  Future<List<int>> addInstallmentDebts(
+      List<InstallmentDebt> installments) async {
+    final db = await database;
+    List<int> installmentsIds = [];
+
+    try {
+      for (InstallmentDebt instalment in installments) {
+        installmentsIds
+            .add(await db.insert('InstallmentDebts', instalment.toMap()));
+      }
+
+      return installmentsIds;
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
+
+  Future<List<Map<String, dynamic>>> getInstallmentsByDebtId(int debtId) async {
+    final db = await database;
+
+    try {
+      List<Map<String, dynamic>> result = await db.query(
+        'InstallmentDebts',
+        where: 'debt_id = ?',
+        whereArgs: [debtId],
+      );
+
+      return result;
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
 }
